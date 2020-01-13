@@ -1,0 +1,12 @@
+<repositories encoding="unicode" version="1.1">
+  <repo priority="50" quality="experimental">
+    <name>rocm-aomp</name>
+    <description>Ebuilds to install AOMP on Gentoo</description>
+    <homepage>https://github.com/justxi/rocm-aomp</homepage>
+    <owner>
+      <email>gentoo@holzke.net</email>
+      <name>justXi</name>
+    </owner>
+    <source type="git">https://github.com/justxi/rocm-aomp.git</source>
+  </repo>
+</repositories>
