@@ -38,3 +38,13 @@ src_configure() {
 	)
 	cmake_src_configure
 }
+
+src_install() {
+
+	# CMakeLists.txt must be fixed to get this installed automaticaly...
+	mkdir -p ${D}/usr/lib64
+	cp ${BUILD_DIR}/amdvdi_staticTargets.cmake ${D}/usr/lib64 || die
+	sed -e "s:/var/tmp/portage/dev-libs/rocclr-9999/work/rocclr-9999_build:/usr/lib64:" -i ${D}/usr/lib64/amdvdi_staticTargets.cmake
+
+	cmake_src_install
+}
