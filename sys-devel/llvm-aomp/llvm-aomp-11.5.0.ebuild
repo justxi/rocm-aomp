@@ -58,9 +58,9 @@ src_configure() {
 		-DBUG_REPORT_URL="https://github.com/justxi/rocm-aomp"
 		-DLLVM_ENABLE_BINDINGS=OFF
 		-DLLVM_INCLUDE_BENCHMARKS=OFF
-		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr/lib/aomp/"
-                -DCMAKE_INSTALL_LIBDIR="${EPREFIX}/usr/lib/aomp/lib"
-		-DCMAKE_INSTALL_MANDIR="${EPREFIX}/usr/lib/aomp/share/man"
+		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr/lib/llvm/aomp/"
+                -DCMAKE_INSTALL_LIBDIR="${EPREFIX}/usr/lib/llvm/aomp/lib"
+		-DCMAKE_INSTALL_MANDIR="${EPREFIX}/usr/lib/llvm/aomp/share/man"
 
 		-DCMAKE_SHARED_LINKER_FLAGS="-Wl,--disable-new-dtags"
 		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON
