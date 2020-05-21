@@ -30,7 +30,7 @@ COMMON_DEPEND="sys-process/numactl"
 RDEPEND="${COMMON_DEPEND}
 	non-free? ( dev-libs/hsa-ext-rocr )"
 DEPEND="${COMMON_DEPEND}
-	>=dev-libs/roct-thunk-interface-${PV}"
+	>=dev-libs/roct-thunk-interface-${PV}::rocm-aomp"
 
 src_prepare() {
 	sed -e "s:get_version ( \"1.0.0\" ):get_version ( \"${PV}\" ):" -i CMakeLists.txt || die
