@@ -9,7 +9,7 @@ if [[ ${PV} == *9999 ]] ; then
 	EGIT_REPO_URI="https://github.com/RadeonOpenCompute/ROCm-Device-Libs/"
 	EGIT_BRANCH="amd-stg-open"
 	inherit git-r3
-	S="${WORKDIR}/${P}/src"
+	S="${WORKDIR}/${P}/"
 else
 	SRC_URI="https://github.com/RadeonOpenCompute/ROCm-Device-Libs/archive/roc-ocl-${PV}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/ROCm-Device-Libs-roc-ocl-${PV}"

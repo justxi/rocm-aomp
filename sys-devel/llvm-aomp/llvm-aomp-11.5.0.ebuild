@@ -17,7 +17,7 @@ IUSE="debug"
 
 #RDEPEND="=dev-libs/rocr-runtime-${PV}*
 #	 dev-util/rocminfo"
-RDEPEND=""
+RDEPEND="=dev-libs/rocr-runtime-3.3.9999"
 DEPEND="${RDEPEND}
 	dev-util/cmake
 	dev-vcs/git"
