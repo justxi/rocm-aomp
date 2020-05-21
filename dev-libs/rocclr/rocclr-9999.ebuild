@@ -15,6 +15,10 @@ RDEPEND=">=dev-libs/rocm-comgr-${PV}
 DEPEND="${RDEPEND}
 	>=dev-util/rocm-cmake-3.3.0"
 
+PATCHES=(
+	${FILESDIR}/rocclr-master-install-cmake-file.patch
+)
+
 src_unpack() {
 	EGIT_BRANCH="master"
 	git-r3_fetch "https://github.com/ROCm-Developer-Tools/ROCclr"
@@ -24,14 +28,6 @@ src_unpack() {
 
 	git-r3_checkout "https://github.com/ROCm-Developer-Tools/ROCclr"
 	git-r3_checkout "https://github.com/radeonopencompute/ROCm-OpenCL-Runtime" ${WORKDIR}/opencl-on-vdi
-}
-
-src_prepare() {
-	sed -e "s:DESTINATION lib:DESTINATION lib64:" -i ${S}/CMakeLists.txt
-	sed -e "s:DESTINATION include:DESTINATION include/rocclr:" -i ${S}/CMakeLists.txt
-
-	eapply_user
-	cmake_src_prepare
 }
 
 src_configure() {
