@@ -26,6 +26,7 @@ RDEPEND="=dev-libs/rocr-runtime-3.3.9999
 	=sys-devel/llvm-aomp-11.5.0"
 DEPEND="${RDEPEND}"
 
+# Change install DESTINATION instead of the patch?
 PATCHES=(
 	"${FILESDIR}/rocm-device-libs-amd-stg-open-change-imported-location.patch"
 )
