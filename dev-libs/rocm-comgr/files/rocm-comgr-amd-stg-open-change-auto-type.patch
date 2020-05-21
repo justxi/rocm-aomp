@@ -1,0 +1,22 @@
+--- a/src/comgr-symbol.cpp	2020-05-21 12:15:13.736691248 +0200
++++ b/src/comgr-symbol.cpp	2020-05-21 12:14:43.545691363 +0200
+@@ -168,7 +168,8 @@
+       return NULL;
+ 
+     Symp->setName(Name);
+-    auto ExpectedFsymValue = Fsym.getValue();
++//    auto 
++    llvm::Expected<uint64_t> ExpectedFsymValue = Fsym.getValue();
+     if (!ExpectedFsymValue)
+       return NULL;
+     Symp->Value = ExpectedFsymValue.get();
+@@ -238,7 +239,8 @@
+         return AMD_COMGR_STATUS_ERROR;
+       StringRef SymName = *SymNameOrErr;
+       Ctxp->setName(SymName);
+-      auto ExpectedSymbolValue = Symbol.getValue();
++//      auto 
++      llvm::Expected<uint64_t> ExpectedSymbolValue = Symbol.getValue();
+       if (!ExpectedSymbolValue)
+         return AMD_COMGR_STATUS_ERROR;
+       Ctxp->Value = ExpectedSymbolValue.get();

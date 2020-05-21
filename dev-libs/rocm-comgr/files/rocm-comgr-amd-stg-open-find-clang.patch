@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt	2020-05-21 09:45:20.283725555 +0200
++++ b/CMakeLists.txt	2020-05-21 09:46:58.505725180 +0200
+@@ -25,7 +25,7 @@
+ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+   find_package(AMDDeviceLibs REQUIRED)
+ 
+-  find_package(Clang REQUIRED)
++  find_package(Clang REQUIRED PATHS ${LLVM_DIR} "/opt/rocm/llvm" NO_DEFAULT_PATH)
+   add_definitions(${LLVM_DEFINITIONS})
+   include_directories(${LLVM_INCLUDE_DIRS})
+   link_directories(${LLVM_LIBRARY_DIRS})

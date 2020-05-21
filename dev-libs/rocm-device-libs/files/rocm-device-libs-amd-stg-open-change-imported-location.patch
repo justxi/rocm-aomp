@@ -1,0 +1,11 @@
+--- a/cmake/Packages.cmake	2020-05-21 10:32:18.251714805 +0200
++++ b/cmake/Packages.cmake	2020-05-21 10:32:50.473714682 +0200
+@@ -35,7 +35,7 @@
+   set(AMD_DEVICE_LIBS_TARGET_CODE "${AMD_DEVICE_LIBS_TARGET_CODE}
+ add_library(${target} STATIC IMPORTED)
+ set_target_properties(${target} PROPERTIES
+-  IMPORTED_LOCATION \"\${AMD_DEVICE_LIBS_PREFIX}/lib/${target_prefix}${target_name}${target_suffix}\")")
++  IMPORTED_LOCATION \"\${AMD_DEVICE_LIBS_PREFIX}/amdgcn/bitcode/${target_prefix}${target_name}${target_suffix}\")")
+ endforeach()
+ configure_file(AMDDeviceLibsConfig.cmake.in
+   ${CMAKE_CURRENT_BINARY_DIR}/AMDDeviceLibsConfig.cmake.install

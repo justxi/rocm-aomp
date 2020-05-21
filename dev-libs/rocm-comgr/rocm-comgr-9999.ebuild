@@ -15,11 +15,7 @@ else
 	S="${WORKDIR}/ROCm-CompilerSupport-rocm-${PV}/lib/comgr"
 	KEYWORDS="~amd64"
 fi
-PATCHES=(
-	"${FILESDIR}/${PN}-2.6.0-find-clang.patch"
-	"${FILESDIR}/${PN}-2.6.0-find-lld-includes.patch"
-	"${FILESDIR}/${PN}-3.1.0-dependencies.patch"
-)
+
 
 DESCRIPTION="Radeon Open Compute Code Object Manager"
 HOMEPAGE="https://github.com/RadeonOpenCompute/ROCm-CompilerSupport"
@@ -28,7 +24,15 @@ SLOT="0/$(ver_cut 1-2)"
 
 RDEPEND=">=dev-libs/rocm-device-libs-${PV}
 	>=sys-devel/llvm-aomp-11.5.0"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	>=dev-util/rocm-cmake-3.3.0"
+
+PATCHES=(
+	"${FILESDIR}/${PN}-3.1.0-dependencies.patch"
+	"${FILESDIR}/${PN}-amd-stg-open-find-clang.patch"
+	"${FILESDIR}/${PN}-amd-stg-open-find-lld-includes.patch"
+	"${FILESDIR}/${PN}-amd-stg-open-change-auto-type.patch"
+)
 
 src_prepare() {
 	cmake_src_prepare
@@ -37,6 +41,7 @@ src_prepare() {
 src_configure() {
 	local mycmakeargs=(
 		-DLLVM_DIR="${EPREFIX}/usr/lib/llvm/aomp/"
+		-DROCM_DIR="/usr/"
 	)
 	cmake_src_configure
 }
