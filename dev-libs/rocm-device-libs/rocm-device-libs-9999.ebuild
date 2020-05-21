@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+#
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -22,8 +22,8 @@ HOMEPAGE="https://github.com/RadeonOpenCompute/ROCm-Device-Libs"
 LICENSE="MIT"
 SLOT="0/$(ver_cut 1-2)"
 
-RDEPEND="=dev-libs/rocr-runtime-3.3.9999::rocm-aomp
-	=sys-devel/llvm-aomp-11.5.0::rocm-aomp"
+RDEPEND="=dev-libs/rocr-runtime-3.3.9999
+	=sys-devel/llvm-aomp-11.5.0"
 DEPEND="${RDEPEND}"
 
 src_configure() {
