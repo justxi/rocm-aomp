@@ -11,19 +11,19 @@ LICENSE="MIT"
 SLOT="0/$(ver_cut 1-2)"
 
 RDEPEND=">=dev-libs/rocm-comgr-${PV}
-	>=sys-devel/llvm-aomp-11.5.0"
+	>=sys-devel/llvm-aomp-11.6.1"
 DEPEND="${RDEPEND}
-	>=dev-util/rocm-cmake-3.3.0"
+	>=dev-util/rocm-cmake-3.5.0"
 
 PATCHES=(
 	${FILESDIR}/rocclr-master-install-cmake-file.patch
 )
 
 src_unpack() {
-	EGIT_BRANCH="master"
+	EGIT_BRANCH="roc-3.5.x"
 	git-r3_fetch "https://github.com/ROCm-Developer-Tools/ROCclr"
 
-	EGIT_BRANCH="master"
+	EGIT_BRANCH="roc-3.5.x"
 	git-r3_fetch "https://github.com/radeonopencompute/ROCm-OpenCL-Runtime"
 
 	git-r3_checkout "https://github.com/ROCm-Developer-Tools/ROCclr"
