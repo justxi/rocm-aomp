@@ -8,15 +8,15 @@ inherit cmake git-r3
 DESCRIPTION="HIP: C++ Heterogeneous-Compute Interface for Portability"
 HOMEPAGE="https://github.com/ROCm-Developer-Tools/HIP"
 EGIT_REPO_URI="https://github.com/ROCm-Developer-Tools/HIP"
-EGIT_BRANCH="master-next"
+EGIT_BRANCH="roc-3.5.x"
 
 LICENSE="MIT"
 SLOT="0/$(ver_cut 1-2)"
 
 RDEPEND=">=dev-libs/rocclr-${PV}
-	>=sys-devel/llvm-aomp-11.5.0"
+	>=sys-devel/llvm-aomp-11.6.1"
 DEPEND="${RDEPEND}
-	>=dev-util/rocm-cmake-3.3.0"
+	>=dev-util/rocm-cmake-3.5.0"
 
 PATCHES=(
 	"${FILESDIR}/hipvdi-master-next-disable-testing.patch"
