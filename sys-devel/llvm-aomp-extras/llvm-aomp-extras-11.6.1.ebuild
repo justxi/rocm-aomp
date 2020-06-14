@@ -21,6 +21,14 @@ DEPEND="${RDEPEND}
         dev-util/cmake
         dev-vcs/git"
 
+src_prepare() {
+
+	sed -e "s:/lib/bitcode:/lib:" -i "${S}/aomp-device-libs/libm/CMakeLists.txt" || die
+	sed -e "s:/lib/bitcode:/lib:" -i "${S}/aomp-device-libs/aompextras/CMakeLists.txt" || die
+
+	cmake-utils_src_prepare
+}
+
 src_configure() {
         if use debug; then
                 CMAKE_BUILD_TYPE=Debug
@@ -28,10 +36,15 @@ src_configure() {
                 CMAKE_BUILD_TYPE=Release
         fi
 
+	# DEVICELIBS_ROOT has to match installation path of "dev-libs/rocm-device-libs"
+
         local mycmakeargs=(
+		-DROCM_DIR="/usr"
+		-DAOMP="/usr/lib/llvm/aomp"
+		-DAOMP_STANDALONE_BUILD=0
+		-DDEVICELIBS_ROOT="/usr/lib"
 		-DLLVM_DIR="/usr/lib/llvm/aomp/lib/cmake/llvm"
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr/lib/llvm/aomp/"
-		-DROCM_DIR="/usr"
         )
 
         cmake-utils_src_configure
