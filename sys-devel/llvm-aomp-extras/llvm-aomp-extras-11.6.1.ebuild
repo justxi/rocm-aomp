@@ -15,12 +15,11 @@ SLOT="0"
 
 IUSE="debug"
 
-RDEPEND="=dev-libs/llvm-aomp-3.5.9999"
+RDEPEND="=dev-libs/rocm-device-libs-9999
+	=sys-devel/llvm-aomp-11.6.1"
 DEPEND="${RDEPEND}
         dev-util/cmake
         dev-vcs/git"
-
-#S="${WORKDIR}/${P}/llvm"
 
 src_configure() {
         if use debug; then
