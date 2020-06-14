@@ -1,6 +1,6 @@
---- a/CMakeLists.txt	2020-05-21 17:10:16.618522615 +0200
-+++ b/CMakeLists.txt	2020-05-21 17:11:56.194524364 +0200
-@@ -643,28 +643,29 @@
+--- a/CMakeLists.txt	2020-06-14 19:31:33.679674387 +0200
++++ b/CMakeLists.txt	2020-06-14 19:32:15.858674226 +0200
+@@ -645,32 +645,32 @@
  # Testing steps
  #############################
  # Target: test
@@ -18,8 +18,12 @@
 -    include_directories(${HIP_SRC_PATH}/tests/src)
 -    hit_add_directory_recursive(${HIP_SRC_PATH}/tests/src "directed_tests")
 -
+-    # Add unit tests
+-    include_directories(${HIP_SRC_PATH}/tests/unit)
+-    hit_add_directory_recursive(${HIP_SRC_PATH}/tests/unit "unit_tests")
+-
 -    # Add top-level tests to build_tests
--    add_custom_target(build_tests DEPENDS directed_tests)
+-    add_custom_target(build_tests DEPENDS directed_tests unit_tests)
 -
 -    # Add custom target: check
 -    add_custom_target(check COMMAND "${CMAKE_COMMAND}" --build . --target test DEPENDS build_tests)
@@ -37,18 +41,21 @@
 +#    include(${HIP_SRC_PATH}/tests/hit/HIT.cmake)
 +#
 +#    # Add tests
-+#   include_directories(${HIP_SRC_PATH}/tests/src)
++#    include_directories(${HIP_SRC_PATH}/tests/src)
 +#    hit_add_directory_recursive(${HIP_SRC_PATH}/tests/src "directed_tests")
 +#
-+#   # Add top-level tests to build_tests
-+#    add_custom_target(build_tests DEPENDS directed_tests)
++#    # Add unit tests
++#    include_directories(${HIP_SRC_PATH}/tests/unit)
++#    hit_add_directory_recursive(${HIP_SRC_PATH}/tests/unit "unit_tests")
 +#
-+#   # Add custom target: check
-+#   add_custom_target(check COMMAND "${CMAKE_COMMAND}" --build . --target test DEPENDS build_tests)
++#    # Add top-level tests to build_tests
++#    add_custom_target(build_tests DEPENDS directed_tests unit_tests)
++#
++#    # Add custom target: check
++#    add_custom_target(check COMMAND "${CMAKE_COMMAND}" --build . --target test DEPENDS build_tests)
 +#else()
 +#    message(STATUS "Testing targets will not be available. To enable them please ensure that the HIP installation directory is writeable. Use -DCMAKE_INSTALL_PREFIX to specify a suitable location")
 +#endif()
-+message(STATUS "Testing targets will not be available - Disabled by ebuild!")
  
  #############################
  # Code analysis

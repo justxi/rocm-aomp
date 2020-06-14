@@ -19,23 +19,29 @@ DEPEND="${RDEPEND}
 	>=dev-util/rocm-cmake-3.5.0"
 
 PATCHES=(
-	"${FILESDIR}/hipvdi-master-next-disable-testing.patch"
+	"${FILESDIR}/hip-3.5.9999-disable-testing.patch"
 )
 
 # -DROCM_PATH=$ROCM_DIR \
 # -DCMAKE_MODULE_PATH=$ROCM_DIR/cmake \
 # -DCMAKE_PREFIX_PATH=$ROCM_DIR/include;$ROCM_DIR \
 
+S="${WORKDIR}/hip-3.5.9999"
+
 src_configure() {
+
+	# Needed?
+	#	-DROCM_PATH="/usr"
+
 	local mycmakeargs=(
+		-DHSA_PATH="/usr"
 		-DHIP_COMPILER=clang
-		-DHIP_PLATFORM=vdi
-		-DVDI_DIR=/usr/include/rocclr
-		-DLIBVDI_STATIC_DIR=/usr/lib64/
-		-DHSA_PATH=/usr
-		-DCMAKE_INSTALL_PREFIX="/usr/lib/hip/"
+		-DHIP_PLATFORM=rocclr
+		-DROCclr_DIR="/usr/include/rocclr"
+		-DLIBROCclr_STATIC_DIR="/usr/lib64/cmake/rocclr"
 		-DCMAKE_CXX_FLAGS=-Wno-ignored-attributes
 		-DCMAKE_PREFIX_PATH=/usr/include/rocclr/include
+		-DCMAKE_INSTALL_PREFIX="/usr/lib/hip/"
 	)
 	cmake_src_configure
 }
