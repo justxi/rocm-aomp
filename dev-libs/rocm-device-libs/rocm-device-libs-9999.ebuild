@@ -27,14 +27,22 @@ RDEPEND="=dev-libs/rocr-runtime-3.5.9999
 	=sys-devel/llvm-aomp-11.6.1"
 DEPEND="${RDEPEND}"
 
-# Change install DESTINATION instead of the patch?
-#PATCHES=(
-#	"${FILESDIR}/rocm-device-libs-amd-stg-open-change-imported-location.patch"
-#)
-
 src_configure() {
 	local mycmakeargs=(
 		-DLLVM_DIR="${EPREFIX}/usr/lib/llvm/aomp/"
 	)
 	cmake_src_configure
+}
+
+src_install() {
+
+	cmake_src_install
+
+	# This should be added to the CMakeLists.txt and maybe installed to "/usr/include/rocm-device-libs"?
+	# Needed by llvm-aomp-extras.
+	mkdir ${D}/usr/include
+	cp ${S}/irif/inc/* ${D}/usr/include
+	cp ${S}/ockl/inc/ockl* ${D}/usr/include
+	cp ${S}/oclc/inc/* ${D}/usr/include
+	cp ${S}/ocml/inc/* ${D}/usr/include
 }
