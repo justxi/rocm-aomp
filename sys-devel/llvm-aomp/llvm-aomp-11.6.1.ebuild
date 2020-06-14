@@ -10,7 +10,7 @@ EGIT_REPO_URI="https://github.com/ROCm-Developer-Tools/amd-llvm-project.git"
 EGIT_COMMIT="aomp-11.6-1"
 
 LICENSE=""
-KEYWORDS="~amd64"
+KEYWORDS=""
 SLOT="0"
 
 IUSE="debug"
