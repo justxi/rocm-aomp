@@ -16,7 +16,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/rocm-cmake-3.5.0"
 
 PATCHES=(
-	${FILESDIR}/rocclr-master-install-cmake-file.patch
+	${FILESDIR}/${PN}-3.5.0-cmake-install-destination.patch
 )
 
 src_unpack() {
@@ -33,19 +33,13 @@ src_unpack() {
 src_configure() {
 	local mycmakeargs=(
 		-DUSE_COMGR_LIBRARY=YES
-		-DOPENCL_DIR=${WORKDIR}/opencl-on-vdi/api/opencl
+		-DOPENCL_DIR=${WORKDIR}/opencl-on-vdi/
 		-DCMAKE_INSTALL_PREFIX="/usr"
 	)
 	cmake_src_configure
 }
 
 src_install() {
-
-	# CMakeLists.txt must be fixed to get this installed automaticaly...
-#	mkdir -p ${D}/usr/lib64
-#	cp ${BUILD_DIR}/amdvdi_staticTargets.cmake ${D}/usr/lib64 || die
-#	sed -e "s:/var/tmp/portage/dev-libs/rocclr-9999/work/rocclr-9999_build:/usr/lib64:" -i ${D}/usr/lib64/amdvdi_staticTargets.cmake
-
         # This should be fixed in the CMakeLists.txt to get this installed automatically
         sed -e "s:/var/tmp/portage/dev-libs/${PF}/work/rocclr-${PV}_build:/usr/lib64:" -i "${BUILD_DIR}/amdrocclr_staticTargets.cmake"
         insinto /usr/lib64/cmake/rocclr

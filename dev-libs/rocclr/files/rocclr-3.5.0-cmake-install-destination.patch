@@ -1,53 +1,52 @@
---- a/CMakeLists.txt	2020-05-21 16:12:59.355389456 +0200
-+++ b/CMakeLists.txt	2020-05-21 16:15:24.649388902 +0200
-@@ -188,40 +188,41 @@
+--- a/CMakeLists.txt	2020-06-07 13:12:46.497062447 +0200
++++ b/CMakeLists.txt	2020-06-07 13:13:44.401062226 +0200
+@@ -202,40 +202,40 @@
+ #endif()
  endif()
- message("cmake install path  ${CMAKE_INSTALL_PREFIX}")
  
--install( TARGETS amdvdi_static ARCHIVE DESTINATION lib LIBRARY DESTINATION lib COMPONENT applications)
-+install( TARGETS amdvdi_static EXPORT amdvdi_export ARCHIVE DESTINATION lib64 LIBRARY DESTINATION lib64 COMPONENT applications)
-+INSTALL(EXPORT amdvdi_export DESTINATION lib64)
- FILE(GLOB headerfiles "${CMAKE_CURRENT_SOURCE_DIR}/*.h*")
- INSTALL (
+-install( TARGETS amdrocclr_static ARCHIVE DESTINATION lib LIBRARY DESTINATION lib COMPONENT applications)
++install( TARGETS amdrocclr_static ARCHIVE DESTINATION lib64 LIBRARY DESTINATION lib64 COMPONENT applications)
+ file(GLOB headerfiles "${CMAKE_CURRENT_SOURCE_DIR}/*.h*")
+ install (
      FILES ${headerfiles}
 -    DESTINATION include)
 +    DESTINATION include/rocclr)
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/elf"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/compiler"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/utils"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/platform"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/thread"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/os"
 -   DESTINATION include
 +   DESTINATION include/rocclr
     FILES_MATCHING PATTERN "*.h*")
- INSTALL (
+ install (
     DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/device"
 -   DESTINATION include
 +   DESTINATION include/rocclr
