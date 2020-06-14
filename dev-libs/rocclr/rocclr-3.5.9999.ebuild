@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/RadeonOpenCompute/ROCclr"
 LICENSE="MIT"
 SLOT="0/$(ver_cut 1-2)"
 
-RDEPEND=">=dev-libs/rocm-comgr-${PV}
+RDEPEND=">=dev-libs/rocm-comgr-9999
 	>=sys-devel/llvm-aomp-11.6.1"
 DEPEND="${RDEPEND}
 	>=dev-util/rocm-cmake-3.5.0"
