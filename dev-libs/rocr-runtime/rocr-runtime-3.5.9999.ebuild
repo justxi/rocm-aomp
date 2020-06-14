@@ -19,7 +19,7 @@ fi
 DESCRIPTION="Radeon Open Compute Runtime"
 HOMEPAGE="https://github.com/RadeonOpenCompute/ROCR-Runtime"
 PATCHES=(
-	"${FILESDIR}/${PN}-3.0.0-cmake-install-paths.patch"
+	"${FILESDIR}/${PN}-3.5.0-cmake-install-paths.patch"
 )
 
 LICENSE="MIT"
