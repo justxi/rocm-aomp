@@ -13,7 +13,7 @@ LICENSE=""
 KEYWORDS=""
 SLOT="0"
 
-IUSE="debug"
+IUSE="debug nvptx"
 
 RDEPEND="=dev-libs/rocr-runtime-3.5.9999"
 DEPEND="${RDEPEND}
@@ -33,25 +33,30 @@ src_configure() {
 #		append-cxxflags "-DNDEBUG"
 #	fi
 
+	# Set list of default nvptx subarchitectures to build
+	# 30,32,35,50,60,61,70
+#	export NVPTXGPUS="61"
+
+	# Set list of default amdgcn subarchitectures to build
+	# gfx700 gfx701 gfx801 gfx803 gfx900 gfx902 gfx906 gfx908
+#	export GFXLIST="gfx803"
+
 	if use debug; then
 		CMAKE_BUILD_TYPE=Debug
 	else
 		CMAKE_BUILD_TYPE=Release
 	fi
 
-	# Set list of default nvptx subarchitectures to build
-	# 30,32,35,50,60,61,70
-	export NVPTXGPUS="61"
-
-	# Set list of default amdgcn subarchitectures to build
-	# gfx700 gfx701 gfx801 gfx803 gfx900 gfx902 gfx906 gfx908
-	export GFXLIST="gfx803"
+	LLVM_TARGETS="AMDGPU;X86"
+	if use nvptx; then
+		LLVM_TARGETS+=";NVPTX"
+	fi
 
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=OFF
                 -DLLVM_ENABLE_ASSERTIONS=ON
 		-DLLVM_ENABLE_PROJECTS="clang;lld;compiler-rt;"
-		-DLLVM_TARGETS_TO_BUILD="AMDGPU;X86;"
+		-DLLVM_TARGETS_TO_BUILD="${LLVM_TARGETS}"
 		-DLLVM_VERSION_SUFFIX=_AOMP_11.6.1
 		-DBUG_REPORT_URL="https://github.com/justxi/rocm-aomp"
 		-DLLVM_ENABLE_BINDINGS=OFF
@@ -64,12 +69,6 @@ src_configure() {
 		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON
 		-DCMAKE_INSTALL_RPATH=\$ORIGIN:\$ORIGIN/../lib:\$ORIGIN/../hsa/lib:\$ORIGIN/../../lib64:\$ORIGIN/../../hsa/lib:$AOMP_INSTALL_DIR/lib:$AOMP_INSTALL_DIR/hsa/lib
 	)
-
-	# TODO: Edit $AOMP_INSTALL_DIR
-	#       Add "NVPTX" to enabled projects
-
-#		-DROCM_DIR="/usr"
-#		-DROCM_VERSION="3.0.0"
 
 	cmake-utils_src_configure
 }
