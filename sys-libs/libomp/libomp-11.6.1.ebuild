@@ -34,6 +34,20 @@ pkg_pretend() {
 	fi
 }
 
+src_prepare() {
+
+	sed -e "s:LIBOMPTARGET_DEP_LIBHSA_INCLUDE_DIRS \${ROCM_DIR}/hsa/include:LIBOMPTARGET_DEP_LIBHSA_INCLUDE_DIRS \${ROCM_DIR}/include/hsa/:" -i "${S}/libomptarget/plugins/hsa/CMakeLists.txt" || die
+
+	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt" || die
+
+	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
+	sed -e "s:-I\${ROCM_DIR}/include:-I\${ROCM_DIR}/include/hsa:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
+
+	sed -e "s:ROCDL_INC_OCKL \${DEVICELIBS_ROOT}/ockl/inc:ROCDL_INC_OCKL /usr/include:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
+
+	cmake-utils_src_prepare
+}
+
 src_configure() {
 #	if ! use debug; then
 #		append-cflags "-DNDEBUG"
@@ -57,13 +71,16 @@ src_configure() {
 	AOMP_PATH="/usr/lib/llvm/aomp"
 
 	export AOMP="/usr/lib/llvm/aomp"
-
-#		-DLLVM_DIR="${EPREFIX}/usr/lib/llvm/aomp/lib/cmake/llvm"
+	export CPATH="/usr/lib64/libffi/include/"
 
 	local mycmakeargs=(
 		-DROCM_DIR="/usr/"
 
-		-DAOMP_STANDALONE_BUILD=1
+		-DAOMP_STANDALONE_BUILD=0
+
+		-DLLVM_DIR="${EPREFIX}/usr/lib/llvm/aomp/lib/cmake/llvm"
+		-DClang_DIR="${EPREFIX}/usr/lib/llvm/aomp/lib/cmake/clang"
+
 		-DOPENMP_ENABLE_LIBOMPTARGET=1
 		-DLIBOMP_COPY_EXPORTS=OFF
 		-DOPENMP_TEST_C_COMPILER="${AOMP_PATH}/bin/clang"
@@ -73,8 +90,9 @@ src_configure() {
 
 		-DCMAKE_C_FLAGS=-g
 		-DCMAKE_CXX_FLAGS=-g
-		-DCMAKE_INSTALL_PREFIX="/usr/lib/llvm/aomp/"
-		-DOPENMP_INSTALL_LIBDIR="/usr/lib64"
+		-DCMAKE_INSTALL_PREFIX="/usr/"
+
+		-DOPENMP_LIBDIR_SUFFIX="64"
 	)
 
 	if use nvptx; then
