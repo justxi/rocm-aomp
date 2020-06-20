@@ -40,13 +40,18 @@ src_install() {
 
 	# This should be added to the CMakeLists.txt and maybe installed to "/usr/include/rocm-device-libs"?
 	# Needed by llvm-aomp-extras, libomp.
-	mkdir ${D}/usr/include
-	cp ${S}/irif/inc/* ${D}/usr/include
 
-	cp ${S}/ockl/inc/ockl* ${D}/usr/include
-	cp ${S}/ockl/inc/device_amd_hsa.h ${D}/usr/include
+	BP="/usr/include/rocm-device-libs"
 
-	cp ${S}/oclc/inc/* ${D}/usr/include
+	dodir "${BP}/irif"
+	cp -R "${S}/irif/inc" "${D}/${BP}/irif/"
 
-	cp ${S}/ocml/inc/* ${D}/usr/include
+	dodir "${BP}/ockl"
+	cp -R "${S}/ockl/inc" "${D}/${BP}/ockl/"
+
+	dodir "${BP}/oclc"
+	cp -R "${S}/oclc/inc" "${D}/${BP}/oclc/"
+
+	dodir "${BP}/ocml"
+	cp -R "${S}/ocml/inc" "${D}/${BP}/ocml/"
 }
