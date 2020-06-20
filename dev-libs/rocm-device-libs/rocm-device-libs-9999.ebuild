@@ -41,7 +41,7 @@ src_install() {
 	# This should be added to the CMakeLists.txt and maybe installed to "/usr/include/rocm-device-libs"?
 	# Needed by llvm-aomp-extras, libomp.
 
-	BP="/usr/include/rocm-device-libs"
+	BP="/usr/include/"
 
 	dodir "${BP}/irif"
 	cp -R "${S}/irif/inc" "${D}/${BP}/irif/"
