@@ -1,0 +1,13 @@
+--- a/libomptarget/deviceRTLs/hostcall/CMakeLists.txt	2020-06-20 16:38:24.502777677 +0200
++++ b/libomptarget/deviceRTLs/hostcall/CMakeLists.txt	2020-06-20 16:38:45.771777141 +0200
+@@ -204,8 +204,8 @@
+     DEPENDS ${bc_files}
+     )
+   add_custom_target(lib${libname}-${mcpu} ALL DEPENDS lib${libname}-${mcpu}.bc)
+-  install(FILES ${OUTPUTDIR}/lib${libname}-${mcpu}.bc DESTINATION "lib/libdevice")
+-  install(FILES ${OUTPUTDIR}/lib${libname}-${mcpu}.bc DESTINATION "lib-debug/libdevice")
++  install(FILES ${OUTPUTDIR}/lib${libname}-${mcpu}.bc DESTINATION "lib64/libdevice")
++#  install(FILES ${OUTPUTDIR}/lib${libname}-${mcpu}.bc DESTINATION "lib-debug/libdevice")
+   set(lastmcpu ${mcpu})
+ endforeach()
+ 

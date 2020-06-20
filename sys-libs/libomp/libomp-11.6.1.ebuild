@@ -20,50 +20,35 @@ DEPEND="${RDEPEND}
 	dev-util/cmake
 	dev-vcs/git"
 
+PATCHES=(
+	"${FILESDIR}/${P}-change-lib-install-destination.patch"
+)
+
 S="${WORKDIR}/${P}/openmp"
 
-#CMAKE_MAKEFILE_GENERATOR="emake"
-
 pkg_pretend() {
-
 	if use nvptx; then
 		if gcc-major-version gt 7; then
-			einfo "Maximum GCC Version is 7"
+			einfo "Maximum supported GCC Version is 7"
 			die
 		fi
 	fi
 }
 
 src_prepare() {
-
 	sed -e "s:LIBOMPTARGET_DEP_LIBHSA_INCLUDE_DIRS \${ROCM_DIR}/hsa/include:LIBOMPTARGET_DEP_LIBHSA_INCLUDE_DIRS \${ROCM_DIR}/include/hsa/:" -i "${S}/libomptarget/plugins/hsa/CMakeLists.txt" || die
-
 	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt" || die
-
 	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
-
-#	sed -e "s:-I\${ROCM_DIR}/include:-I\${ROCM_DIR}/include/hsa:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
-
-#	sed -e "s:ROCDL_INC_OCKL \${DEVICELIBS_ROOT}/ockl/inc:ROCDL_INC_OCKL /usr/include:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
 
 	cmake-utils_src_prepare
 }
 
 src_configure() {
-#	if ! use debug; then
-#		append-cflags "-DNDEBUG"
-#		append-cxxflags "-DNDEBUG"
-#	fi
-
 	if use debug; then
 		CMAKE_BUILD_TYPE=Debug
 	else
 		CMAKE_BUILD_TYPE=Release
 	fi
-
-	# Set list of default nvptx subarchitectures to build
-	# 30,32,35,50,60,61,70
-	export NVPTXGPUS="61"
 
 	# Set list of default amdgcn subarchitectures to build
 	# gfx700 gfx701 gfx801 gfx803 gfx900 gfx902 gfx906 gfx908
@@ -98,6 +83,10 @@ src_configure() {
 	)
 
 	if use nvptx; then
+		# Set list of default nvptx subarchitectures to build
+		# 30,32,35,50,60,61,70
+		export NVPTXGPUS="61"
+
 		mycmakeargs+=(
 			-DLIBOMPTARGET_NVPTX_ENABLE_BCLIB=ON
 			-DLIBOMPTARGET_NVPTX_CUDA_COMPILER=${AOMP_PATH}/bin/clang++
@@ -107,9 +96,5 @@ src_configure() {
 		)
 	fi
 
-	# Needed?
-	# $AOMP_ORIGIN_RPATH -DROCM_DIR=$ROCM_DIR"
-
 	cmake-utils_src_configure
 }
-
