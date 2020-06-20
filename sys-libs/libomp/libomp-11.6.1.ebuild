@@ -41,9 +41,10 @@ src_prepare() {
 	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt" || die
 
 	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
-	sed -e "s:-I\${ROCM_DIR}/include:-I\${ROCM_DIR}/include/hsa:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
 
-	sed -e "s:ROCDL_INC_OCKL \${DEVICELIBS_ROOT}/ockl/inc:ROCDL_INC_OCKL /usr/include:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
+#	sed -e "s:-I\${ROCM_DIR}/include:-I\${ROCM_DIR}/include/hsa:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
+
+#	sed -e "s:ROCDL_INC_OCKL \${DEVICELIBS_ROOT}/ockl/inc:ROCDL_INC_OCKL /usr/include:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
 
 	cmake-utils_src_prepare
 }
@@ -75,6 +76,7 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DROCM_DIR="/usr/"
+		-DDEVICELIBS_ROOT="/usr/include"
 
 		-DAOMP_STANDALONE_BUILD=0
 
