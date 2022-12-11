@@ -2,7 +2,7 @@
 #
 
 EAPI=7
-inherit git-r3 cmake-utils
+inherit git-r3 cmake
 
 DESCRIPTION="AOMP is an open source Clang/LLVM based compiler with added support for the OpenMP® API on Radeon™ GPUs"
 HOMEPAGE="https://github.com/ROCm-Developer-Tools/aomp"
@@ -26,7 +26,7 @@ src_prepare() {
 	sed -e "s:/lib/bitcode:/lib:" -i "${S}/aomp-device-libs/libm/CMakeLists.txt" || die
 	sed -e "s:/lib/bitcode:/lib:" -i "${S}/aomp-device-libs/aompextras/CMakeLists.txt" || die
 
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
@@ -47,6 +47,6 @@ src_configure() {
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr/lib/llvm/aomp/"
         )
 
-        cmake-utils_src_configure
+        cmake_src_configure
 }
 
