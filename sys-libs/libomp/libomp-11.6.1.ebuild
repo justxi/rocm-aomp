@@ -2,7 +2,7 @@
 #
 
 EAPI=7
-inherit git-r3 cmake-utils
+inherit git-r3 cmake
 
 DESCRIPTION="OpenMP for Radeon™ GPUs"
 HOMEPAGE="https://github.com/ROCm-Developer-Tools/aomp"
@@ -40,7 +40,7 @@ src_prepare() {
 	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt" || die
 	sed -e "s:\${ROCM_DIR}/lib/bitcode:\${ROCM_DIR}/lib/:" -i "${S}/libomptarget/deviceRTLs/hostcall/CMakeLists.txt" || die
 
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
@@ -96,5 +96,5 @@ src_configure() {
 		)
 	fi
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }
